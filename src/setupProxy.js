@@ -1,0 +1,37 @@
+const proxy=require("http-proxy-middleware")
+
+module.exports=function(app){
+    app.use(proxy('/ajax',{
+        target:"https://m.piaoniu.com",
+        changeOrigin:true,
+        secure:true,
+        pathRewrite:{
+            '^/ajax':''
+        },
+        cookieDomainRewrite:{
+            '*':'https://m.piaoniu.com'
+        }
+    }))
+    app.use(proxy('/cnm',{
+        target:"https://www.piaoniu.com",
+        changeOrigin:true,
+        secure:false,
+        pathRewrite:{
+            '^/cnm':''
+        }, 
+        cookieDomainRewrite:{
+            '*':'https://www.piaoniu.com'
+        }
+    }))
+    app.use(proxy('/fwq',{
+        target:"http://49.232.155.26",
+        changeOrigin:true,
+        secure:false,
+        pathRewrite:{
+            '^/fwq':''
+        }, 
+        cookieDomainRewrite:{
+            '*':'http://49.232.155.26'
+        }
+    }))
+}
